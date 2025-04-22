@@ -151,6 +151,7 @@
   </div>
 
   <script>
+  window.addEventListener('DOMContentLoaded', () => {
     const form = document.getElementById('predictionForm');
     const popup = document.getElementById('popupModal');
     const resultScreen = document.getElementById('resultScreen');
@@ -219,6 +220,6 @@
       mainScreen.style.display = 'none';
       resultScreen.style.display = 'block';
     }
-  </script>
-</body>
-</html>
+  });
+</script>
+
