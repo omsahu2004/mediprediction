@@ -150,6 +150,75 @@
     <button id="restartBtn">Restart</button>
   </div>
 
-  <script src="script.js"></script>
+  <script>
+    const form = document.getElementById('predictionForm');
+    const popup = document.getElementById('popupModal');
+    const resultScreen = document.getElementById('resultScreen');
+    const mainScreen = document.getElementById('mainScreen');
+    const confirmBtn = document.getElementById('confirmBtn');
+    const cancelBtn = document.getElementById('cancelBtn');
+    const restartBtn = document.getElementById('restartBtn');
+    let currentSymptoms = '';
+
+    form.addEventListener('submit', function (e) {
+      e.preventDefault();
+      const input = document.getElementById('symptoms').value.trim();
+      if (input === '') return;
+      currentSymptoms = input;
+      popup.style.display = 'flex';
+    });
+
+    confirmBtn.addEventListener('click', () => {
+      popup.style.display = 'none';
+      showPrediction(currentSymptoms);
+    });
+
+    cancelBtn.addEventListener('click', () => {
+      popup.style.display = 'none';
+    });
+
+    restartBtn.addEventListener('click', () => {
+      resultScreen.style.display = 'none';
+      mainScreen.style.display = 'block';
+      document.getElementById('symptoms').value = '';
+    });
+
+    function showPrediction(symptoms) {
+      const resultText = document.getElementById('resultText');
+      const cureText = document.getElementById('cureText');
+      
+      const predictions = [
+        {
+          message: 'You may have a common cold.',
+          cure: 'Rest well, stay hydrated, and take over-the-counter cold medications.'
+        },
+        {
+          message: 'Symptoms indicate possible flu.',
+          cure: 'Drink fluids, rest, and consider visiting a doctor for antiviral meds.'
+        },
+        {
+          message: 'Signs point to a mild viral infection.',
+          cure: 'Get enough sleep, maintain hygiene, and eat healthy food.'
+        },
+        {
+          message: 'Could be seasonal allergies.',
+          cure: 'Avoid allergens, use antihistamines, and keep surroundings clean.'
+        },
+        {
+          message: 'Further diagnosis recommended. Please consult a doctor.',
+          cure: 'Seek professional medical advice as soon as possible.'
+        }
+      ];
+
+      const randomIndex = Math.floor(Math.random() * predictions.length);
+      const prediction = predictions[randomIndex];
+
+      resultText.textContent = prediction.message;
+      cureText.textContent = `Recommended Care: ${prediction.cure}`;
+
+      mainScreen.style.display = 'none';
+      resultScreen.style.display = 'block';
+    }
+  </script>
 </body>
 </html>
